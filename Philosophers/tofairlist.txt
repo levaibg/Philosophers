@@ -1,5 +1,5 @@
 tructures de données : Définir t_philosopher et les paramètres.
-
+	
 Initialisation : Créer les philosophes et mutex (fourchettes).
 
 Gestion du temps : Fonction pour obtenir le temps en ms.

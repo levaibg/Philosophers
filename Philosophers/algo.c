@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 09:08:14 by lloginov          #+#    #+#             */
-/*   Updated: 2024/11/22 14:29:08 by lloginov         ###   ########.fr       */
+/*   Created: 2024/11/12 16:03:40 by lloginov          #+#    #+#             */
+/*   Updated: 2024/11/22 18:41:55 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+int	thinking(t_data *data)
 {
-	t_philo	philo;
-	t_data data;
-	if(parsing(ac, av) == 1)
+	if(data->philo->dead == 1)
+	{
+		lockclear(data, "philo died");
 		return(1);
-	innit_philo(ac, av, &philo, &data);
-	phree(&philo, &data);
-	return (0);
+	}
+	lockclear(data, "philo think");
+	return(0);
 }
+
+int	eating(t_data *data)
+{
+	if(data->philo->dead == 1)
+	{
+		lockclear(data, "philo died");
+		return(1);
+	}
+
+	return(0); 
+}
+
+int	slepping(t_data *data)
+{
+	return(0);
+}
+
