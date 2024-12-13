@@ -6,7 +6,7 @@
 #    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/08 11:55:01 by lloginov          #+#    #+#              #
-#    Updated: 2024/11/22 14:16:32 by lloginov         ###   ########.fr        #
+#    Updated: 2024/12/12 13:36:30 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ CFLAGS = -Wall -Wextra -Werror  #-fsanitize=address -g3
 SRC =   main.c\
 		philo.c\
 		philo_utils.c\
-		algo.c\
-		
+		philo_utils2.c\
+		routine.c\
 
 OBJ = $(SRC:.c=.o)
 
