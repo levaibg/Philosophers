@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 11:50:15 by lloginov          #+#    #+#             */
-/*   Updated: 2024/12/12 15:40:32 by lloginov         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:40:40 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	innit_var2(t_philo *philo, t_data *data)
 	philo->nb_forks = 0;
 	philo->nb_philo = 0;
 	philo->data = NULL;
-	philo->dead = 0;
+	data->dead = 0;
 	data->start_time = 0;
 	philo->right_fork = NULL;
 	// philo->printff = NULL;
@@ -59,6 +59,7 @@ int	innit_philo(int ac, char **av, t_data *data, t_philo *philo)
 	philo->nb_forks = philo->nb_philo;
 	data->start_time = get_time();
 	data->philo = philo;
+	pthread_mutex_init(data->dead, NULL);
 	// printf("%d\n",ephilo->nb_forks);
 	return(0);
 }
@@ -93,7 +94,6 @@ void assign_philo(t_data *data, t_philo *philo)
 
 		i++;
 	}
-
 	pthread_mutex_init(&data->printff, NULL);
 
 }
@@ -103,6 +103,7 @@ void phree(t_data *data)
 	int i;
 
 	i = 0;
+	pthread_join(data->philo[i].thread, NULL);
 	if(data->forks)
 	{
 		while(i < data->philo->nb_forks)

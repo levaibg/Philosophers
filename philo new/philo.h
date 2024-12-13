@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 09:08:21 by lloginov          #+#    #+#             */
-/*   Updated: 2024/12/12 20:45:58 by lloginov         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:40:40 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct t_philo
 	int				must_eat;
 	int				meal_count;
 	long long		last_meal;
-	int				dead;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t *right_fork;
 	pthread_t		thread;
@@ -45,6 +44,7 @@ typedef struct t_philo
 
 typedef	struct t_data
 {
+	int				dead;
 	long long		start_time;
 	int				time_eat;
 	int				time_die;
@@ -52,7 +52,7 @@ typedef	struct t_data
 	pthread_mutex_t	eating;
 	pthread_mutex_t	printff;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	eat;
+	pthread_mutex_t	dead;
 	t_philo			*philo;
 }	t_data;
 

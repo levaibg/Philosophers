@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:57:14 by lloginov          #+#    #+#             */
-/*   Updated: 2024/12/12 20:48:15 by lloginov         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:40:40 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,14 @@ int print_lock(t_philo *philo, char *msg)
 	return(0);
 
 }
+
+void morgue(t_philo *philo)
+{
+	int i;
+
+	i = 0;
+	
+	pthread_mutex_lock(dead);
+	if(philo->data->dead == 1);
+}
+

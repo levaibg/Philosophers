@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:48:37 by lloginov          #+#    #+#             */
-/*   Updated: 2024/12/13 11:46:02 by lloginov         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:33:28 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ int dead(t_philo *philo)
 {
 	if(get_time() - philo->data->start_time - philo->last_meal >=  philo->data->time_die)
 	{
-		print_lock(philo, "DEAD");
-		printf("philo meal : %lld \n %lld \n %d\n", philo->data->start_time, philo->last_meal, philo->data->time_die );
+		philo->data->dead = 1;
+		printf("mort %d\n", philo->id);
+		// printf("philo meal : %lld \n %lld \n %d\n", philo->data->start_time, philo->last_meal, philo->data->time_die );
 		return(1);
 	}
 	return(0);
@@ -25,7 +26,7 @@ int dead(t_philo *philo)
 
 int thinking(t_philo *philo)
 {
-	if(dead(philo) == 1)
+	if(philo->data->dead == 1)
 		return(1);
 	print_lock(philo, "is thinking");
 	return(0);
@@ -33,7 +34,7 @@ int thinking(t_philo *philo)
 
 int	eating(t_philo *philo)
 {
-	if(dead(philo) == 1)
+	if(philo->data->dead == 1)
 		return(1);
 	pthread_mutex_lock(&philo->left_fork);
 	print_lock(philo, "has taken a fork");
@@ -48,11 +49,12 @@ int	eating(t_philo *philo)
 	return(0);
 }
 
-int	sleeping(t_philo *philo)
+int		sleeping(t_philo *philo)
 {
-	if(dead(philo) == 1)
+	if(philo->data->dead == 1)
 		return(1);
 	print_lock(philo, "is sleeping");
+	// printf("\n TEMPS DORMIR : %d\n", philo->data->time_sleep);
 	usleep(philo->data->time_sleep * 1000);
 	return(0);
 }

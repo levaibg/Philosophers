@@ -6,7 +6,7 @@
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 11:53:43 by lloginov          #+#    #+#             */
-/*   Updated: 2024/12/13 11:25:51 by lloginov         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:34:10 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int philo_create(t_data *data, t_philo *philo)
 			return(1);
 		}
 		// usleep(150);
-		pthread_join(data->philo[i].thread, NULL);
+		//pthread_join(data->philo[i].thread, NULL);
 		i++;
 	}
 	return(0);
@@ -82,23 +82,24 @@ void	*routine(void *arg)
 	t_philo *philo;
 	
 	philo = (t_philo *)arg;
-	if(philo->id %2 == 0)
+	if(philo->id == 1)
+		usleep(10000);
+	if(philo->id %2 != 0)
 		usleep(philo->data->time_die * 500);
 
 	// printf(" %d at %p\n", philo->id, &philo[i]);
-	while(1)
+	while(philo->data->dead == 0)
 	{
-		printf("Last Meeal : %lld\n", philo->last_meal);
+		// printf("Last Meeal : %lld\n", philo->last_meal);
 		if(dead(philo) == 1)
 			return(NULL);
 		if(thinking(philo) == 1)
 			return(NULL);
 		if(eating(philo) == 1)
 			return(NULL);
-		printf("Last Meeal : %lld\n", philo->last_meal);		
+		// printf("Last Meeal : %lld\n", philo->last_meal);		
 		if(sleeping(philo) == 1)
 			return(NULL);
-		break;
 	}
 	// printf("philo %d pense\n", philo->id);
 	// philo->last_meal = get_time() - philo->data->start_time;
