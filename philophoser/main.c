@@ -5,27 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 11:47:47 by lloginov          #+#    #+#             */
-/*   Updated: 2024/12/13 16:40:40 by lloginov         ###   ########.fr       */
+/*   Created: 2024/12/19 15:49:01 by lloginov          #+#    #+#             */
+/*   Updated: 2025/01/11 17:44:53 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_philo philo;
-	t_data data;
-	innit_var2(&philo, &data);
-	if(parsing(ac,av) == 1)
-		return(1);
-	if(innit_philo(ac, av, &data, &philo) == 1)
-		return(1);
-	if(philo_thread(&philo, &data) == 1)
-		return(1);
-	philo_create(&data, &philo);
+	t_data	data;
+	t_philo	philo;
 
-	phree(&data);
-	return(0);
+	innit_arg(&data, &philo);
+	if (pars_innit(&data, &philo, ac, av) == 1)
+		return (1);
+	philo_thread(&data, &philo);
+	create_thread(&philo, &data);
+	if (asvp(&data, &philo) == 1)
+	{
+		phreelo(&data, &philo);
+		return (1);
+	}
+	phreelo(&data, &philo);
+	return (0);
 }

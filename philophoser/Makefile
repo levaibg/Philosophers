@@ -5,21 +5,21 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/08 11:55:01 by lloginov          #+#    #+#              #
-#    Updated: 2024/12/12 13:36:30 by lloginov         ###   ########.fr        #
+#    Created: 2024/12/19 15:48:24 by lloginov          #+#    #+#              #
+#    Updated: 2025/01/13 17:39:07 by lloginov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror  #-fsanitize=address -g3 
+CFLAGS = -Wall -Wextra -Werror -pthread -g3  -fsanitize=thread 
 
 SRC =   main.c\
 		philo.c\
 		philo_utils.c\
-		philo_utils2.c\
 		routine.c\
+		innit_philo.c\
+		routine2.c\
 
 OBJ = $(SRC:.c=.o)
 

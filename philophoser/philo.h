@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lloginov <lloginov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 09:08:21 by lloginov          #+#    #+#             */
-/*   Updated: 2024/12/13 16:40:40 by lloginov         ###   ########.fr       */
+/*   Created: 2024/12/19 15:48:31 by lloginov          #+#    #+#             */
+/*   Updated: 2025/01/13 17:34:33 by lloginov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,59 +26,68 @@
 # define RED "\e[1;31m"	  // red
 # define PURPLE "\033[0;35m" // violette
 
-struct t_data;
-
 typedef struct t_philo
 {
+	int				eatean;
 	int				id;
+	int				full;
 	int				nb_forks;
-	int				nb_philo;
-	struct t_data	*data;
-	int				must_eat;
+	int				p;
 	int				meal_count;
 	long long		last_meal;
+	pthread_mutex_t	meal_c_lock;
 	pthread_mutex_t	left_fork;
-	pthread_mutex_t *right_fork;
+	pthread_mutex_t	*right_fork;
 	pthread_t		thread;
+	pthread_t		asvp;
+	struct t_data	*data;
 }	t_philo;
 
-typedef	struct t_data
+typedef struct t_data
 {
+	int				nb_philo;
+	int				must_eat;
 	int				dead;
 	long long		start_time;
 	int				time_eat;
 	int				time_die;
 	int				time_sleep;
+	int				full_count;
+	pthread_mutex_t	full_lock;
 	pthread_mutex_t	eating;
 	pthread_mutex_t	printff;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	dead;
+	pthread_mutex_t	deadd;
 	t_philo			*philo;
 }	t_data;
 
+//innit philo
 
+void				innit_arg(t_data *data, t_philo *philo);
+int					pars_innit(t_data *data, t_philo *philo, int ac, char **av);
+int					philo_thread(t_data *data, t_philo *philo);
+int					assign_philo(t_data *data, t_philo *philo);
 
-//philo_utils
+//philo utils
 long long			get_time(void);
-int					innit_philo(int ac, char **av, t_data *data, t_philo *philo);
-void				assign_philo(t_data *data, t_philo *philo);
-void 				phree(t_data *data);
-void				innit_var2(t_philo *philo, t_data *data);
-
-//philo_utils2
 int					ft_atoi(const char *str);
-int 	print_lock(t_philo *philo, char *msg);
+int					phreelo(t_data *data, t_philo *philo);
+int					printlock(t_philo *philo, char *msg);
+void				solophilo(t_philo *philo);
 
 //philo
-int 				parsing(int ac, char **av);
-int					philo_thread(t_philo *philo, t_data *data);
-void				*routine(void *arg);
-int philo_create(t_data *data, t_philo *philo);
+int					create_thread(t_philo *philo, t_data *data);
+void				*routine_philo(void *arg);
+int					asvp(t_data *data, t_philo *philo);
 
-//routine
-int dead(t_philo *philo);
-int thinking(t_philo *philo);
-int	eating(t_philo *philo);
-int	sleeping(t_philo *philo);
+//routine 
+int					thinking(t_philo *philo);
+int					eating(t_philo *philo);
+int					eating_2(t_philo *philo);
+int					morgue(t_philo *philo);
+
+//routine2
+int					sleeping(t_philo *philo);
+int					test(t_philo *philo);
+int					mutex_fork_innit(t_data *data, int i);
 
 #endif
